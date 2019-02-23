@@ -8,9 +8,9 @@ import Footer from './footer'
 const Layout = ({children}) => (
 	<StaticQuery
 		query={graphql`
-			query SiteTitleQuery {
+			{
 				site {
-					siteMetadata {
+					m: siteMetadata {
 						title
 					}
 				}
@@ -18,7 +18,7 @@ const Layout = ({children}) => (
 		`}
 		render={data => (
 			<React.Fragment>
-				<Header siteTitle={data.site.siteMetadata.title} />
+				<Header siteTitle={data.site.m.title} />
 				{children}
 				<Footer />
 			</React.Fragment>
