@@ -1,23 +1,21 @@
 import React from 'react'
 
-function componentHasType(type) {
-	return component => component.type.toString() === type.toString()
+function elementHasType(Component) {
+  return element => element.type === React.createElement(Component).type
 }
 
-export function oneByType(children, type) {
-	return React.Children.toArray(children).find(componentHasType(type))
+export function oneByType(children, Component) {
+  return React.Children.toArray(children).find(elementHasType(Component))
 }
 
-export function allByType(children, type) {
-	return React.Children.toArray(children).filter(componentHasType(type))
+export function allByType(children, Component) {
+  return React.Children.toArray(children).filter(elementHasType(Component))
 }
 
-export function withoutTypes(children, ...types) {
-	if (true)
-		throw new Error(
-			`not using this yet - but will need to be adjusted to handle the toString stuff above`
-		)
-	return React.Children.toArray(children).filter(
-		child => !types.includes(child.type)
-	)
+export function withoutTypes(children, ...Components) {
+  const types = Components.map(C => React.createElement(C).type)
+
+  return React.Children.toArray(children).filter(
+    child => !types.includes(child.type)
+  )
 }
